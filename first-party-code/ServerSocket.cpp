@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "ServerSocket.h"
+#include "Log.h"
 
 CServerSocket::CServerSocket()
 {
@@ -53,17 +54,24 @@ char* CServerSocket::Read()
 {
 	int theResult = 0;
 	theResult = recvfrom( m_Socket, m_IncomingBuffer, m_IncomingBufferSize, 0, &m_Sockaddr, &m_SockaddrSize );
-	if (theResult > 0) {
+	if (theResult > 0)
+	{
 		m_SocketInitialized = true;
 		m_IncomingBuffer[ theResult ] = '\n';
 		m_IncomingBuffer[ theResult+1 ] = 0;
         printf("Bytes received: %d\n", theResult);
-		printf( m_IncomingBuffer );
+		CLog::Print( "Server Socket received: " );
+		CLog::Print( m_IncomingBuffer );
     }
     else if (theResult == 0)
-        printf("Connection closing...\n");
-    else  {
-        printf("recv failed: %d\n", WSAGetLastError());
+	{
+		sprintf( m_IncomingBuffer, "" );
+        printf("Bytes received: %d\n", theResult);
+	}
+    else
+	{
+		sprintf( m_IncomingBuffer, "" );
+		printf("recv failed: %d\n", WSAGetLastError());
     }
 
 	return m_IncomingBuffer;

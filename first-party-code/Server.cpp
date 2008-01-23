@@ -1,7 +1,7 @@
 #include "WindowsIncludes.h"
 #include "Server.h"
 #include "Game.h"
-
+#include "Log.h"
 
 CServer::CServer( )
 {
@@ -21,12 +21,15 @@ void CServer::Update()
 		char* theString = 0;
 		while( theString = m_ServerCommandQueue.TakeFromFront( ) )
 		{
-			printf( theString );
-			printf( "\n" );
+			CLog::Print( "Executing Lua Code: " );
+			CLog::Print( theString );
+			CLog::Print( "\n" );
 			luaL_dostring( m_LuaState, theString );
 			delete[] theString;
 		}
 	m_ServerSyncPrimitive.Drop();
+
+	Sleep( 2 );
 }
 
 void CServer::SetGame( CGame* inGame )

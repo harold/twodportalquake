@@ -1,22 +1,28 @@
+#include "WindowsIncludes.h"
 #include "Game.h"
-#include "CommandQueue.h"
 
-int __cdecl main(void) 
+void InputThreadMain( void* inGame )
 {
-	CGame theGame;
-
-	theGame.StartServer();
-
-	int theFrameCounter = 0;
+	CGame* theGame = reinterpret_cast<CGame*>(inGame);
 	char theInput[80];
 
 	while( true )
 	{
-		theGame.Update();
-		printf( "> " );
 		gets( theInput );
-		theGame.ClientWrite( theInput );
-		// noop
+		theGame->SendInput( theInput );
+	}
+}
+
+int __cdecl main(void) 
+{
+	CGame theGame;
+	theGame.StartServer();
+
+	_beginthread( InputThreadMain, 0, &theGame );
+
+	while( true )
+	{
+		theGame.Update();
 	}
 
     return 0;

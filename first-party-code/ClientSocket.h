@@ -11,6 +11,9 @@ class CClientSocket
 		char m_IncomingBuffer[512];
 		int  m_IncomingBufferSize;
 
+		char m_HostName[128];
+		char m_Port[16];
+
 		bool     m_SocketInitialized;
 		sockaddr m_Sockaddr;
 		int      m_SockaddrSize;
@@ -21,6 +24,7 @@ class CClientSocket
 		~CClientSocket();
 
 	// Methods
+		void SetHostNameAndPort( char* inHostName, char* inPort );
 		char* Read();
 		void Write( char* inString );
 };

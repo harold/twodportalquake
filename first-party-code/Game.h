@@ -9,6 +9,9 @@ class CGame
 			CServer m_Server;
 			CClient m_Client;
 
+			CSyncPrimitive m_InputSyncPrimitive;
+			CCommandQueue  m_InputCommandQueue;
+
 	// Ctor
 		public:
 			CGame();
@@ -18,6 +21,7 @@ class CGame
 		private:
 		public:
 			void CGame::Update();
+			void CGame::SendInput( char* inString );
 			void CGame::StartServer();
 
 			CServer* CGame::GetServer();

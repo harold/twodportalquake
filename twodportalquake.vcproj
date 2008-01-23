@@ -145,6 +145,12 @@
 				RelativePath=".\first-party-code\Game.h">
 			</File>
 			<File
+				RelativePath=".\first-party-code\Log.cpp">
+			</File>
+			<File
+				RelativePath=".\first-party-code\Log.h">
+			</File>
+			<File
 				RelativePath=".\first-party-code\LuaIncludes.h">
 			</File>
 			<File
