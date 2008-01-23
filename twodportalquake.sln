@@ -1,6 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "twodportalquake", "twodportalquake.vcproj", "{D693ECFC-4DBC-4731-A529-35FAA2700E9A}"
 	ProjectSection(ProjectDependencies) = postProject
+		{C71B86EE-8A90-4010-AC57-6E485159C3AC} = {C71B86EE-8A90-4010-AC57-6E485159C3AC}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua", "lua.vcproj", "{C71B86EE-8A90-4010-AC57-6E485159C3AC}"
