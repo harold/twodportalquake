@@ -169,7 +169,7 @@
 				RelativePath=".\first-party-code\SyncPrimitive.h">
 			</File>
 			<File
-				RelativePath=".\first-party-code\WindowsHeaders.h">
+				RelativePath=".\first-party-code\WindowsIncludes.h">
 			</File>
 		</Filter>
 	</Files>
