@@ -14,9 +14,11 @@ class CClientSocket
 		char m_HostName[128];
 		char m_Port[16];
 
-		bool     m_SocketInitialized;
-		sockaddr m_Sockaddr;
-		int      m_SockaddrSize;
+		bool      m_SocketInitialized;
+
+		addrinfo* m_AddrInfo;
+		sockaddr* m_Sockaddr;
+		int       m_SockaddrSize;
 
 	// Ctor
 	public:

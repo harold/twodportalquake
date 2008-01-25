@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include "ClientSocket.h"
+#include "Log.h"
 
 CClientSocket::CClientSocket()
 {
 	m_IncomingBufferSize = sizeof(m_IncomingBuffer);
-	m_SockaddrSize = sizeof(sockaddr);
 	m_SocketInitialized = false;
 	int theResult = 0;
 
@@ -19,11 +19,13 @@ CClientSocket::CClientSocket()
         WSACleanup();
     }
 
-	SetHostNameAndPort( "qa0104", "27017" );
+	SetHostNameAndPort( "localhost", "42000" );
 }
 
 CClientSocket::~CClientSocket()
 {
+	freeaddrinfo( m_AddrInfo );
+
 	int theResult = 0;
 
 	// shutdown the connection since we're done
@@ -41,18 +43,54 @@ CClientSocket::~CClientSocket()
 
 void CClientSocket::SetHostNameAndPort( char* inHostName, char* inPort )
 {
-	sprintf( m_HostName, inHostName );
-	sprintf( m_Port,     inPort );
+	strcpy( m_HostName, inHostName );
+	strcpy( m_Port,     inPort );
+
+	getaddrinfo( m_HostName, m_Port, 0, &m_AddrInfo );
+	m_Sockaddr = m_AddrInfo->ai_addr;
+	m_SockaddrSize = sizeof(sockaddr);
 }
 
 char* CClientSocket::Read()
 {
-	return 0;
+	if( !m_SocketInitialized )
+	{
+		return 0;
+	}
+
+	int theResult = 0;
+	theResult = recvfrom( m_Socket, m_IncomingBuffer, m_IncomingBufferSize, 0, m_Sockaddr, &m_SockaddrSize );
+	if (theResult > 0)
+	{
+		m_SocketInitialized = true;
+		m_IncomingBuffer[ theResult ] = '\n';
+		m_IncomingBuffer[ theResult+1 ] = 0;
+		printf("Client: Bytes received: %d\n", theResult);
+		CLog::Print( "Client Socket received: " );
+		CLog::Print( m_IncomingBuffer );
+	}
+	else if (theResult == 0)
+	{
+		sprintf( m_IncomingBuffer, "" );
+		printf("Client: Bytes received: %d\n", theResult);
+	}
+	else
+	{
+		sprintf( m_IncomingBuffer, "" );
+		printf("Client: recv failed: %d\n", WSAGetLastError());
+	}
+
+	return m_IncomingBuffer;
 }
 
 void CClientSocket::Write( char* inString )
 {
-	addrinfo* theAddrInfo = 0;
-	getaddrinfo( m_HostName, m_Port, 0, &theAddrInfo );
-	sendto( m_Socket, inString, (int)strlen( inString ), 0, theAddrInfo->ai_addr, (int)theAddrInfo->ai_addrlen );
+	int theSendResult = 0;
+	theSendResult = sendto( m_Socket, inString, (int)strlen( inString ), 0, m_Sockaddr, m_SockaddrSize );
+	if (theSendResult == SOCKET_ERROR) {
+		printf("Client: send failed: %d\n", WSAGetLastError());
+	}
+	printf("Client: Bytes sent: %d\n", theSendResult);
+
+	m_SocketInitialized = true;
 }

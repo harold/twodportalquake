@@ -24,5 +24,6 @@ class CGame
 			void CGame::ParseCommand( char* inString );
 			void CGame::SendInput( char* inString );
 
+			CServer* GetServer();
 			void CGame::ClientWrite( char* inString );
 };

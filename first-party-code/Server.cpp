@@ -7,7 +7,7 @@ CServer::CServer( )
 {
 	m_LuaState = luaL_newstate();
 	luaL_openlibs( m_LuaState );
-	luaL_dostring( m_LuaState, "STATE = 0" );
+	luaL_dostring( m_LuaState, "STATE = 42" );
 }
 
 CServer::~CServer()
@@ -29,7 +29,16 @@ void CServer::Update()
 		}
 	m_ServerSyncPrimitive.Drop();
 
-	Sleep( 8 );
+	lua_getglobal( m_LuaState, "STATE" );
+	double x = lua_tonumber( m_LuaState, -1 );
+
+	char theBuffer[80];
+	sprintf( theBuffer, "Game State: %0.f", x );
+	m_Socket.Write( theBuffer );
+
+	lua_settop( m_LuaState, 0 );
+
+	Sleep( 1000 );
 }
 
 void CServer::SetGame( CGame* inGame )

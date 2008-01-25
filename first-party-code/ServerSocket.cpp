@@ -23,7 +23,7 @@ CServerSocket::CServerSocket()
 	sockaddr_in theServerSockaddr;
 	theServerSockaddr.sin_family = AF_INET;
 	theServerSockaddr.sin_addr.s_addr = INADDR_ANY;
-	theServerSockaddr.sin_port = htons( 27017 );
+	theServerSockaddr.sin_port = htons( 42000 );
 
 	theResult = bind( m_Socket, (sockaddr*)&theServerSockaddr, sizeof(sockaddr) );
     if (theResult == SOCKET_ERROR) {
@@ -59,20 +59,20 @@ char* CServerSocket::Read()
 		m_SocketInitialized = true;
 		m_IncomingBuffer[ theResult ] = '\n';
 		m_IncomingBuffer[ theResult+1 ] = 0;
-        printf("Bytes received: %d\n", theResult);
+		printf("Server: Bytes received: %d\n", theResult);
 		CLog::Print( "Server Socket received: " );
 		CLog::Print( m_IncomingBuffer );
-    }
-    else if (theResult == 0)
-	{
-		sprintf( m_IncomingBuffer, "" );
-        printf("Bytes received: %d\n", theResult);
 	}
-    else
+	else if (theResult == 0)
 	{
 		sprintf( m_IncomingBuffer, "" );
-		printf("recv failed: %d\n", WSAGetLastError());
-    }
+		printf("Server: Bytes received: %d\n", theResult);
+	}
+	else
+	{
+		sprintf( m_IncomingBuffer, "" );
+		printf("Server: recv failed: %d\n", WSAGetLastError());
+	}
 
 	return m_IncomingBuffer;
 }
@@ -84,12 +84,13 @@ void CServerSocket::Write( char* inString )
 		int theSendResult = 0;
 		theSendResult = sendto( m_Socket, inString, (int)strlen(inString), 0, &m_Sockaddr, m_SockaddrSize );
         if (theSendResult == SOCKET_ERROR) {
-            printf("send failed: %d\n", WSAGetLastError());
+            printf("Server: send failed: %d\n", WSAGetLastError());
         }
-        printf("Bytes sent: %d\n", theSendResult);
+        printf("Server: Bytes sent: %d\n", theSendResult);
 	}
 	else
 	{
-		printf( "Client Socket was not initialized and we tried to write to it.\n" );
+		CLog::Print( "." );
+		//CLog::Print( "Client Socket was not initialized and we tried to write to it.\n" );
 	}
 }
