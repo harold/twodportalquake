@@ -29,7 +29,7 @@ void CServer::Update()
 		}
 	m_ServerSyncPrimitive.Drop();
 
-	Sleep( 2 );
+	Sleep( 8 );
 }
 
 void CServer::SetGame( CGame* inGame )
@@ -39,6 +39,7 @@ void CServer::SetGame( CGame* inGame )
 
 void CServer::StartServer()
 {
+	CLog::Print( "Starting Server!\n" );
 	_beginthread( CServer::ServerThreadMain, 0, this->m_Game );
 }
 

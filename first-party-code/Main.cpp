@@ -16,8 +16,6 @@ void InputThreadMain( void* inGame )
 int __cdecl main(void) 
 {
 	CGame theGame;
-	theGame.StartServer();
-
 	_beginthread( InputThreadMain, 0, &theGame );
 
 	while( true )

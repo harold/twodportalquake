@@ -21,10 +21,8 @@ class CGame
 		private:
 		public:
 			void CGame::Update();
+			void CGame::ParseCommand( char* inString );
 			void CGame::SendInput( char* inString );
-			void CGame::StartServer();
-
-			CServer* CGame::GetServer();
 
 			void CGame::ClientWrite( char* inString );
 };
