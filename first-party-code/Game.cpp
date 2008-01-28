@@ -3,7 +3,6 @@
 
 CGame::CGame()
 {
-	m_Server.SetGame( this );
 }
 
 CGame::~CGame()
@@ -45,11 +44,13 @@ void CGame::ParseCommand( char* inString )
 	char* theToken = strtok( theString, " " );
 
 	// Check for commands
-	if( 0 == strcmp( theToken, "StartServer" ) )
+	if( 0 == strcmp( theToken, "StartServer" ) ||
+		0 == strcmp( theToken, "SS" ) )
 	{
 		m_Server.StartServer( );
 	}
-	else if( 0 == strcmp( theToken, "ConnectToServer" ) )
+	else if( 0 == strcmp( theToken, "ConnectToServer" ) ||
+			 0 == strcmp( theToken, "CTS" ) )
 	{
 		char* theHost;
 		char* thePort;
@@ -65,17 +66,20 @@ void CGame::ParseCommand( char* inString )
 			thePort = "42000";
 		}
 
-		CLog::Print( "Connecting to Server..." );
-		CLog::Print( "\n - Host: " );
+		CLog::Print( "Connecting to Server...\n - Host: " );
 		CLog::Print( theHost );
 		CLog::Print( "\n - Port: " );
 		CLog::Print( thePort );
 		CLog::Print( "\n" );
+
+		m_Client.ConnectToServer( theHost, thePort );
 	}
+/*
 	else
 	{
         m_Client.Write( inString );
 	}
+*/
 
 	delete[] theString;
 }
@@ -85,14 +89,4 @@ void CGame::SendInput( char* inString )
 	m_InputSyncPrimitive.Grab();
 		m_InputCommandQueue.AddToBack( inString );
 	m_InputSyncPrimitive.Drop();
-}
-
-CServer* CGame::GetServer( )
-{
-	return &m_Server;
-}
-
-void CGame::ClientWrite( char* inString )
-{
-	m_Client.Write( inString );
 }

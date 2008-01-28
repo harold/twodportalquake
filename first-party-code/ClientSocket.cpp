@@ -43,8 +43,8 @@ CClientSocket::~CClientSocket()
 
 void CClientSocket::SetHostNameAndPort( char* inHostName, char* inPort )
 {
-	strcpy( m_HostName, inHostName );
-	strcpy( m_Port,     inPort );
+	if( inHostName != 0 ) strcpy( m_HostName, inHostName );
+	if( inPort != 0 )     strcpy( m_Port,     inPort );
 
 	getaddrinfo( m_HostName, m_Port, 0, &m_AddrInfo );
 	m_Sockaddr = m_AddrInfo->ai_addr;
@@ -63,11 +63,11 @@ char* CClientSocket::Read()
 	if (theResult > 0)
 	{
 		m_SocketInitialized = true;
-		m_IncomingBuffer[ theResult ] = '\n';
-		m_IncomingBuffer[ theResult+1 ] = 0;
+		m_IncomingBuffer[ theResult ] = 0;
 		printf("Client: Bytes received: %d\n", theResult);
 		CLog::Print( "Client Socket received: " );
 		CLog::Print( m_IncomingBuffer );
+		CLog::Print( "\n" );
 	}
 	else if (theResult == 0)
 	{

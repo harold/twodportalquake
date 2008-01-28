@@ -16,8 +16,10 @@ class CServerSocket
 		int      m_SockaddrSize;
 
 	// Ctor
-	public:
+	private:
 		CServerSocket();
+	public:
+		CServerSocket( int inPort );
 		~CServerSocket();
 
 	// Methods

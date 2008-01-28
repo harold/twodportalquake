@@ -19,11 +19,13 @@ class CClient
 	// Methods
 		private:
 		public:
-			void CClient::Write( char* inString );
+			void Write( char* inString );
 
-			CCommandQueue* GetCommandQueue();
+			CCommandQueue*  GetCommandQueue();
 			CSyncPrimitive* GetSyncPrimitive();
+			CClientSocket*  GetSocket();
 
-			CClientSocket* GetSocket();
+			void ConnectToServer( char* inHost, char* inPort );
+
 			static void ClientThreadMain( void* inClient );
 };

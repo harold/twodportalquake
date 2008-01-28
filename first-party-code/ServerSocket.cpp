@@ -2,7 +2,7 @@
 #include "ServerSocket.h"
 #include "Log.h"
 
-CServerSocket::CServerSocket()
+CServerSocket::CServerSocket( int inPort )
 {
 	m_IncomingBufferSize = sizeof(m_IncomingBuffer);
 	m_SockaddrSize = sizeof(sockaddr);
@@ -23,7 +23,7 @@ CServerSocket::CServerSocket()
 	sockaddr_in theServerSockaddr;
 	theServerSockaddr.sin_family = AF_INET;
 	theServerSockaddr.sin_addr.s_addr = INADDR_ANY;
-	theServerSockaddr.sin_port = htons( 42000 );
+	theServerSockaddr.sin_port = htons( inPort );
 
 	theResult = bind( m_Socket, (sockaddr*)&theServerSockaddr, sizeof(sockaddr) );
     if (theResult == SOCKET_ERROR) {
@@ -57,11 +57,11 @@ char* CServerSocket::Read()
 	if (theResult > 0)
 	{
 		m_SocketInitialized = true;
-		m_IncomingBuffer[ theResult ] = '\n';
-		m_IncomingBuffer[ theResult+1 ] = 0;
+		m_IncomingBuffer[ theResult ] = 0;
 		printf("Server: Bytes received: %d\n", theResult);
 		CLog::Print( "Server Socket received: " );
 		CLog::Print( m_IncomingBuffer );
+		CLog::Print( "\n" );
 	}
 	else if (theResult == 0)
 	{
@@ -91,6 +91,6 @@ void CServerSocket::Write( char* inString )
 	else
 	{
 		CLog::Print( "." );
-		//CLog::Print( "Client Socket was not initialized and we tried to write to it.\n" );
+		//CLog::Print( "Socket was not initialized and we tried to write to it.\n" );
 	}
 }
