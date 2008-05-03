@@ -5,6 +5,7 @@
 
 CServer::CServer( )
 {
+	m_ConnectedClientCount = 0;
 	m_Socket = 0;
 	m_LuaState = luaL_newstate();
 	luaL_openlibs( m_LuaState );
@@ -24,7 +25,8 @@ void CServer::Update()
 		return;
 	}
 
-	char* theString = m_Socket->Read();
+	sockaddr theSenderAddr;
+	char* theString = m_Socket->Read( &theSenderAddr );
 	int theInputLength = (int)strlen(theString);
 	if( 0 != theInputLength )
 	{
@@ -38,7 +40,12 @@ void CServer::Update()
 		if( 0 == strcmp( theToken, "RequestConnection" ) )
 		{
 			CLog::Print( "Client requests connection!\n" );
-			//theSocket->Write( "OkaySwitchPorts", 0 ); // TODO: multiple client sockaddrs?!
+			if( m_ConnectedClientCount < 2 )
+			{
+				memcpy( &m_ClientAddrs[ m_ConnectedClientCount ], &theSenderAddr, sizeof( sockaddr ) );
+				m_Socket->Write( "OkayLet'sPlay", &m_ClientAddrs[ m_ConnectedClientCount ] );
+				m_ConnectedClientCount++;
+			}
 		}
 		else
 		{

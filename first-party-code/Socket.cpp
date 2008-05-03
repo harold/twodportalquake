@@ -51,11 +51,10 @@ CSocket::~CSocket()
     WSACleanup();
 }
 
-char* CSocket::Read()
+char* CSocket::Read( sockaddr* theSenderAddr )
 {
 	int theIncomingBufferSize = 0;
-	sockaddr theSender;
-	theIncomingBufferSize = recvfrom( m_Socket, m_IncomingBuffer, m_IncomingBufferSize, 0, &theSender, &m_SockaddrSize );
+	theIncomingBufferSize = recvfrom( m_Socket, m_IncomingBuffer, m_IncomingBufferSize, 0, theSenderAddr, &m_SockaddrSize );
 	if (theIncomingBufferSize > 0)
 	{
 		printf("Socket: Bytes received: %d\n", theIncomingBufferSize);

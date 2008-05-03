@@ -5,8 +5,8 @@ class CClient
 {
 	// Members
 		private:
-			CSocket*       m_Socket;
-			sockaddr*      m_ServerSockaddr;
+			CSocket* m_Socket;
+			sockaddr m_ServerSockaddr;
 
 	// Ctor
 		public:

@@ -1,5 +1,5 @@
 *.ncb
 *.suo
 *.user
-Debug/
-Release/
+_Debug/
+_Release/

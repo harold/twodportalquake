@@ -18,6 +18,6 @@ class CSocket
 		~CSocket();
 
 	// Methods
-		char* Read();
+		char* Read( sockaddr* theSenderAddr );
 		void Write( char* inString, sockaddr* theRecipient );
 };
