@@ -3,7 +3,7 @@
 
 CSyncPrimitive::CSyncPrimitive( )
 {
-	m_Mutex = CreateMutex( NULL, FALSE, "SyncPrimitive" );
+	m_Mutex = CreateMutex( NULL, FALSE, L"SyncPrimitive" );
 }
 
 CSyncPrimitive::~CSyncPrimitive()
