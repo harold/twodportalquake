@@ -1,6 +1,8 @@
 #pragma once
 #include "Server.h"
 #include "Client.h"
+#include "SyncPrimitive.h"
+#include "CommandQueue.h"
 
 class CGame
 {

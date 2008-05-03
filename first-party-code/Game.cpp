@@ -12,6 +12,7 @@ CGame::~CGame()
 void CGame::Update()
 {
 	m_Server.Update();
+	m_Client.Update();
 
 	m_InputSyncPrimitive.Grab();
 		char* theString = 0;
@@ -24,8 +25,6 @@ void CGame::Update()
 			delete[] theString;
 		}
 	m_InputSyncPrimitive.Drop();
-
-	Sleep( 8 );
 }
 
 void CGame::ParseCommand( char* inString )
@@ -74,12 +73,10 @@ void CGame::ParseCommand( char* inString )
 
 		m_Client.ConnectToServer( theHost, thePort );
 	}
-/*
 	else
 	{
         m_Client.Write( inString );
 	}
-*/
 
 	delete[] theString;
 }

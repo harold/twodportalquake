@@ -401,14 +401,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\first-party-code\ClientSocket.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\first-party-code\ClientSocket.h"
-				>
-			</File>
-			<File
 				RelativePath=".\first-party-code\CommandQueue.cpp"
 				>
 			</File>
@@ -449,11 +441,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\first-party-code\ServerSocket.cpp"
+				RelativePath=".\first-party-code\Socket.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\first-party-code\ServerSocket.h"
+				RelativePath=".\first-party-code\Socket.h"
 				>
 			</File>
 			<File
