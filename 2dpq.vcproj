@@ -40,8 +40,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;.\third-party-code\lua\src\&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS"
+				AdditionalIncludeDirectories="&quot;.\third-party-code\lua\src\&quot;;&quot;.\third-party-code\glew\include\&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -61,10 +61,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Ws2_32.lib"
+				AdditionalDependencies="Ws2_32.lib glew32.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;.\third-party-code\glew\lib\&quot;"
 				GenerateDebugInformation="true"
-				SubSystem="1"
+				SubSystem="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -117,8 +118,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;.\third-party-code\lua\src\&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS"
+				AdditionalIncludeDirectories="&quot;.\third-party-code\lua\src\&quot;;&quot;.\third-party-code\glew\include\&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -136,10 +137,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Ws2_32.lib"
+				AdditionalDependencies="Ws2_32.lib glew32.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;.\third-party-code\glew\lib\&quot;"
 				GenerateDebugInformation="true"
-				SubSystem="1"
+				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -393,6 +395,14 @@
 			Name="game"
 			>
 			<File
+				RelativePath=".\first-party-code\2dpq.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\2dpq.h"
+				>
+			</File>
+			<File
 				RelativePath=".\first-party-code\Client.cpp"
 				>
 			</File>
@@ -462,6 +472,14 @@
 			</File>
 			<File
 				RelativePath=".\first-party-code\Timer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\uGL.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\uGL.h"
 				>
 			</File>
 			<File
