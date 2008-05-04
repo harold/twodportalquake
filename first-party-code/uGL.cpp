@@ -304,6 +304,10 @@ void CuGL::Draw( HWND inHWND )
 	UNREFERENCED_PARAMETER( inHWND );
 }
 
+void CuGL::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
+{
+}
+
 void CuGL::MouseHandler( MSG inMessage )
 {
 	switch( inMessage.message )

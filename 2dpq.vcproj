@@ -419,6 +419,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\first-party-code\Console.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\Console.h"
+				>
+			</File>
+			<File
 				RelativePath=".\first-party-code\Game.cpp"
 				>
 			</File>

@@ -28,6 +28,11 @@ void CGame::Update()
 	m_InputSyncPrimitive.Drop();
 }
 
+void CGame::Render()
+{
+	m_Client.Render();
+}
+
 void CGame::ParseCommand( char* inString )
 {
 	int theInputLength = (int)strlen(inString);
@@ -87,4 +92,9 @@ void CGame::SendInput( char* inString )
 	m_InputSyncPrimitive.Grab();
 		m_InputCommandQueue.AddToBack( inString );
 	m_InputSyncPrimitive.Drop();
+}
+
+void CGame::ToggleConsole()
+{
+	m_Client.ToggleConsole();
 }

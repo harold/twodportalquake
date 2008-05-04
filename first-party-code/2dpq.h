@@ -20,6 +20,7 @@ class C2dpq : public CuGL
 		virtual void Deinitialize( );
 		virtual void Update( DWORD inMiliseconds );
 		virtual void Draw( HWND inHWND );
+		virtual void Keyboard( unsigned int inMessage, bool inKeyDownFlag );
 		virtual void LeftMouseDown( HWND inHWND );
 		virtual void LeftMouseUp( HWND inHWND );
 };

@@ -65,6 +65,14 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 						{
 							the2dpq.MouseHandler( msg );
 						}
+						else if( 
+							msg.message == WM_KEYDOWN    ||
+							msg.message == WM_SYSKEYDOWN || 
+							msg.message == WM_KEYUP      ||
+							msg.message == WM_SYSKEYUP )
+						{
+							the2dpq.Keyboard( (UINT)msg.wParam, (msg.message == WM_KEYDOWN || msg.message == WM_SYSKEYDOWN) );           
+						}
 						else
 						{
 							DispatchMessage( &msg );

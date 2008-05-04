@@ -25,7 +25,10 @@ class CGame
 	// Methods
 		private:
 		public:
-			void CGame::Update();
-			void CGame::ParseCommand( char* inString );
-			void CGame::SendInput( char* inString );
+			void Update();
+			void Render();
+			void ParseCommand( char* inString );
+			void SendInput( char* inString );
+
+			void ToggleConsole();
 };
