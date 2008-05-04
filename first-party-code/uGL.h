@@ -1,6 +1,7 @@
 #pragma once
 #include <windows.h>
 #include "gl\glew.h"
+#include "gl\wglew.h"
 
 class CuGL
 {
