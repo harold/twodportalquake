@@ -457,6 +457,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\first-party-code\Timer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\Timer.h"
+				>
+			</File>
+			<File
 				RelativePath=".\first-party-code\WindowsIncludes.h"
 				>
 			</File>

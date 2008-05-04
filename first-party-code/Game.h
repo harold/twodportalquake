@@ -3,6 +3,7 @@
 #include "Client.h"
 #include "SyncPrimitive.h"
 #include "CommandQueue.h"
+#include "Timer.h"
 
 class CGame
 {
@@ -10,6 +11,8 @@ class CGame
 		private:
 			CServer m_Server;
 			CClient m_Client;
+
+			CTimer  m_Timer;
 
 			CSyncPrimitive m_InputSyncPrimitive;
 			CCommandQueue  m_InputCommandQueue;

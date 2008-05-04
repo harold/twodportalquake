@@ -10,7 +10,7 @@ CClient::~CClient()
 {
 }
 
-void CClient::Update()
+void CClient::Update( TTimeUnit inTime )
 {
 	sockaddr theSenderAddr;
 	char* theString = m_Socket->Read( &theSenderAddr );

@@ -1,6 +1,7 @@
 #pragma once
 #include "Socket.h"
 #include "LuaIncludes.h"
+#include "Timer.h"
 
 class CGame;
 
@@ -11,18 +12,21 @@ class CServer
 			CSocket*   m_Socket;
 			lua_State* m_LuaState;
 
+			TTimeUnit  m_LastTime;
+			TTimeUnit  m_UpdateDelta;
+
 			int        m_ConnectedClientCount;
 			sockaddr   m_ClientAddrs[2]; // MAX_PLAYERS
 
 
 	// Ctor
 		public:
-			CServer( );
+			CServer();
 			~CServer();
 
 	// Methods
 		private:
 		public:
-			void CServer::Update();
+			void CServer::Update( TTimeUnit inTime );
 			void CServer::StartServer();
 };

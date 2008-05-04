@@ -11,8 +11,9 @@ CGame::~CGame()
 
 void CGame::Update()
 {
-	m_Server.Update();
-	m_Client.Update();
+	TTimeUnit theTime = m_Timer.GetTimeMilliSecs();
+	m_Server.Update( theTime );
+	m_Client.Update( theTime );
 
 	m_InputSyncPrimitive.Grab();
 		char* theString = 0;

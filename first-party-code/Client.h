@@ -1,5 +1,6 @@
 #pragma once
 #include "Socket.h"
+#include "Timer.h"
 
 class CClient
 {
@@ -16,7 +17,7 @@ class CClient
 	// Methods
 		private:
 		public:
-			void Update();
+			void Update( TTimeUnit inTime );
 			void Write( char* inString );
 
 			void ConnectToServer( char* inHost, char* inPort );
