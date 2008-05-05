@@ -99,6 +99,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 						the2dpq.Draw( the2dpq.m_Window.hWnd );
 
 						SwapBuffers( the2dpq.m_Window.hDC );
+						Sleep(1);
 					}
 				}
 			}

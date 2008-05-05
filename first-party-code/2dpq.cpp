@@ -5,7 +5,7 @@ bool C2dpq::Initialize( )
 	m_Game = new CGame();
 
 	// Start Of User Initialization
-	glClearColor( 1.f, 1.f, 1.f, 1.0f );
+	glClearColor( 0, 0, 0, 1.0f );
 	glClearDepth( 1.0f );
 	glDepthFunc( GL_LEQUAL );
 	glEnable( GL_DEPTH_TEST );

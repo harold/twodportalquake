@@ -29,6 +29,7 @@ void CClient::Update( TTimeUnit inTime )
 void CClient::Render()
 {
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
+/*
 	glLoadIdentity();
 	glBegin( GL_LINE_STRIP );
 	glColor3f( 0.0f, 0.0f, 0.2f );
@@ -37,7 +38,7 @@ void CClient::Render()
 		glVertex3f( i, 2*sin((i+((float)m_CurrentTime*0.01f))/2.0f), -10.0f );
 	}
 	glEnd();
-
+*/
 	m_Console.Render();
 
 	glFlush();

@@ -279,8 +279,11 @@ void CuGL::Reshape( int inWidth, int inHeight )
 	glViewport( 0, 0, inWidth, inHeight );
 	glMatrixMode( GL_PROJECTION);
 	glLoadIdentity();
-	float theAspectRatio = static_cast<float>(inWidth) / static_cast<float>(inHeight);
-	gluPerspective( 45.0f, theAspectRatio, 1.0f, 100.0f );
+
+//	float theAspectRatio = static_cast<float>(inWidth) / static_cast<float>(inHeight);
+//	gluPerspective( 45.0f, theAspectRatio, 1.0f, 100.0f );
+
+	glOrtho( -400, 400, -225, 225, 0.5, 100 );
 	glMatrixMode( GL_MODELVIEW);
 	glLoadIdentity();
 }
