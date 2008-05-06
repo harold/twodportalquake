@@ -27,8 +27,7 @@ class CGame
 		public:
 			void Update();
 			void Render();
+			void Keyboard( unsigned int inMessage, bool inKeyDownFlag );
 			void ParseCommand( char* inString );
 			void SendInput( char* inString );
-
-			void ToggleConsole();
 };

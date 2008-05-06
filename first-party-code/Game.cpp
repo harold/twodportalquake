@@ -33,6 +33,11 @@ void CGame::Render()
 	m_Client.Render();
 }
 
+void CGame::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
+{
+	m_Client.Keyboard( inMessage, inKeyDownFlag );
+}
+
 void CGame::ParseCommand( char* inString )
 {
 	int theInputLength = (int)strlen(inString);
@@ -94,7 +99,3 @@ void CGame::SendInput( char* inString )
 	m_InputSyncPrimitive.Drop();
 }
 
-void CGame::ToggleConsole()
-{
-	m_Client.ToggleConsole();
-}

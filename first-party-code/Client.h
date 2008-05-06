@@ -24,9 +24,8 @@ class CClient
 		public:
 			void Update( TTimeUnit inTime );
 			void Render();
-			void Write( char* inString );
+			void Keyboard( unsigned int inMessage, bool inKeyDownFlag );
 
 			void ConnectToServer( char* inHost, char* inPort );
-
-			void ToggleConsole();
+			void Write( char* inString );
 };

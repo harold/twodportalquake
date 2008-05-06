@@ -46,10 +46,7 @@ void C2dpq::Draw( HWND inHWND )
 
 void C2dpq::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
 {
-	if( 192 == inMessage && inKeyDownFlag ) // '~'
-	{
-		m_Game->ToggleConsole();
-	}
+	m_Game->Keyboard( inMessage, inKeyDownFlag );
 }
 
 void C2dpq::LeftMouseDown( HWND inHWND )

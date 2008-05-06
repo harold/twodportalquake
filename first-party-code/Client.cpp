@@ -29,24 +29,29 @@ void CClient::Update( TTimeUnit inTime )
 void CClient::Render()
 {
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
-/*
+
 	glLoadIdentity();
 	glBegin( GL_LINE_STRIP );
-	glColor3f( 0.0f, 0.0f, 0.2f );
+	glColor3f( 0.0f, 0.0f, 0.8f );
 	for( float i=-10; i<=10; i+=2 )
 	{
-		glVertex3f( i, 2*sin((i+((float)m_CurrentTime*0.01f))/2.0f), -10.0f );
+		glVertex3f( i*25, 25*sin((i+((float)m_CurrentTime*0.01f))/2.0f), -10.0f );
 	}
 	glEnd();
-*/
+
 	m_Console.Render();
 
 	glFlush();
 }
 
-void CClient::Write( char* inString )
+void CClient::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
 {
-	m_Socket->Write( inString, &m_ServerSockaddr  );
+	if( 192 == inMessage && inKeyDownFlag ) // '~'
+	{
+		m_Console.Toggle();
+	}
+
+	m_Console.Keyboard( inMessage, inKeyDownFlag );
 }
 
 void CClient::ConnectToServer( char* inHost, char* inPort )
@@ -59,7 +64,8 @@ void CClient::ConnectToServer( char* inHost, char* inPort )
 	m_Socket->Write( "RequestConnection", &m_ServerSockaddr );
 }
 
-void CClient::ToggleConsole()
+void CClient::Write( char* inString )
 {
-	m_Console.Toggle();
+	m_Socket->Write( inString, &m_ServerSockaddr  );
 }
+
