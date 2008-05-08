@@ -71,7 +71,14 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 							msg.message == WM_KEYUP      ||
 							msg.message == WM_SYSKEYUP )
 						{
-							the2dpq.Keyboard( (UINT)msg.wParam, (msg.message == WM_KEYDOWN || msg.message == WM_SYSKEYDOWN) );           
+							TranslateMessage( &msg );
+							//the2dpq.Keyboard( (UINT)msg.wParam, (msg.message == WM_KEYDOWN || msg.message == WM_SYSKEYDOWN) );           
+						}
+						else if( msg.message == WM_CHAR || msg.message == WM_SYSCHAR )
+						{
+							char theBuffer[1024];
+							sprintf( theBuffer, "%c", (char)msg.wParam );
+							::OutputDebugStringA( theBuffer );
 						}
 						else
 						{
