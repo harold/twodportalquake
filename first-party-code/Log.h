@@ -2,16 +2,12 @@
 
 class CLog
 {
-	// Members
+	// NO! Ctor
 		private:
-
-	// Ctor
-		public:
 			CLog();
-			~CLog();
 
 	// Methods
 		private:
 		public:
-			static void Print( char* inString );
+			static void Print( char* inFormat, ... );
 };

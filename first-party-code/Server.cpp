@@ -52,9 +52,7 @@ void CServer::Update( TTimeUnit inTime )
 		}
 		else
 		{
-			CLog::Print( "Executing Lua Code: " );
-			CLog::Print( theString );
-			CLog::Print( "\n" );
+			CLog::Print( "Executing Lua Code: %s\n", theString );
 			luaL_dostring( m_LuaState, theString );
 		}
 
@@ -65,21 +63,10 @@ void CServer::Update( TTimeUnit inTime )
 	{
 		for( int i=0; i<m_ConnectedClientCount; ++i )
 		{
-			m_Socket->Write( "Server Update!", &m_ClientAddrs[ i ] );
+			//m_Socket->Write( "Server Update!", &m_ClientAddrs[ i ] );
 		}
 		m_UpdateDelta %= 2000;
 	}
-
-/*
-	lua_getglobal( m_LuaState, "STATE" );
-	double x = lua_tonumber( m_LuaState, -1 );
-
-	char theBuffer[80];
-	sprintf( theBuffer, "Game State: %0.f", x );
-	m_Socket.Write( theBuffer );
-
-	lua_settop( m_LuaState, 0 );
-*/
 
 	// TODO: select() to wait for data at server socket? (Or at game level?)
 

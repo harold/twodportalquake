@@ -3,10 +3,14 @@
 #include "Image.h"
 #include "uGL.h"
 
+class CGame;
+
 class CConsole
 {
 	// Members
 		private:
+			CGame* m_Game;
+
 			bool   m_Active;
 			float  m_TargetY;
 			float  m_CurrentY;
@@ -26,10 +30,12 @@ class CConsole
 	// Methods
 		private:
 		public:
+			void SetGame( CGame* inGame );
 			void Update( TTimeUnit inTime );
 			void Render();
 			void RenderString( int inY, char* inString );
-			void Keyboard( unsigned int inMessage, bool inKeyDownFlag );
+			bool Keyboard( unsigned int inMessage, bool inKeyDownFlag );
+			void HandleChar( char inChar );
 
 			void Toggle();
 

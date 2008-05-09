@@ -1,4 +1,5 @@
 #include "2dpq.h"
+#include "Log.h"
 
 bool C2dpq::Initialize( )
 {
@@ -19,10 +20,10 @@ bool C2dpq::Initialize( )
 	if(GLEW_OK != err)
 	{
 		/* Problem: glewInit failed, something is seriously wrong. */
-		//printf("Error: %s\n", glewGetErrorString(err));
+		CLog::Print("Error: %s\n", glewGetErrorString(err));
 		return false;
 	}
-	//printf("Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+	CLog::Print("Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
 	wglSwapIntervalEXT( 2 );
 
@@ -44,9 +45,14 @@ void C2dpq::Draw( HWND inHWND )
 	m_Game->Render();
 }
 
-void C2dpq::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
+bool C2dpq::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
 {
-	m_Game->Keyboard( inMessage, inKeyDownFlag );
+	return m_Game->Keyboard( inMessage, inKeyDownFlag );
+}
+
+void C2dpq::HandleChar( char inChar )
+{
+	return m_Game->HandleChar( inChar );
 }
 
 void C2dpq::LeftMouseDown( HWND inHWND )

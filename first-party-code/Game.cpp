@@ -3,6 +3,7 @@
 
 CGame::CGame()
 {
+	m_Console.SetGame( this );
 }
 
 CGame::~CGame()
@@ -15,13 +16,13 @@ void CGame::Update()
 	m_Server.Update( theTime );
 	m_Client.Update( theTime );
 
+	m_Console.Update( theTime );
+
 	m_InputSyncPrimitive.Grab();
 		char* theString = 0;
 		while( theString = m_InputCommandQueue.TakeFromFront( ) )
 		{
-			CLog::Print( "Game processing input: " );
-			CLog::Print( theString );
-			CLog::Print( "\n" );
+			CLog::Print( "Game processing input: %s\n", theString );
 			ParseCommand( theString );
 			delete[] theString;
 		}
@@ -31,11 +32,26 @@ void CGame::Update()
 void CGame::Render()
 {
 	m_Client.Render();
+	m_Console.Render();
+
+	glFlush();
 }
 
-void CGame::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
+bool CGame::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
 {
-	m_Client.Keyboard( inMessage, inKeyDownFlag );
+	if( 192 == inMessage && inKeyDownFlag ) // '~'
+	{
+		m_Console.Toggle();
+		return false;
+	}
+
+	return m_Client.Keyboard( inMessage, inKeyDownFlag ) && m_Console.Keyboard( inMessage, inKeyDownFlag );
+}
+
+void CGame::HandleChar( char inChar )
+{
+	m_Client.HandleChar( inChar );
+	m_Console.HandleChar( inChar );
 }
 
 void CGame::ParseCommand( char* inString )

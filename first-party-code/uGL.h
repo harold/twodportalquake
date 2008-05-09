@@ -75,7 +75,8 @@ class CuGL
 		virtual void Deinitialize( );
 		virtual void Update( DWORD inMiliseconds );
 		virtual void Draw( HWND inHWND );
-		virtual void Keyboard( unsigned int inMessage, bool inKeyDownFlag );
+		virtual bool Keyboard( unsigned int inMessage, bool inKeyDownFlag );
+		virtual void HandleChar( char inChar );
 		virtual void MouseHandler( MSG inMessage );
 		virtual void LeftMouseDown( HWND inHWND );
 		virtual void LeftMouseUp( HWND inHWND );

@@ -71,14 +71,15 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 							msg.message == WM_KEYUP      ||
 							msg.message == WM_SYSKEYUP )
 						{
-							TranslateMessage( &msg );
-							//the2dpq.Keyboard( (UINT)msg.wParam, (msg.message == WM_KEYDOWN || msg.message == WM_SYSKEYDOWN) );           
+							bool theShouldTranslateFlag = the2dpq.Keyboard( (UINT)msg.wParam, (msg.message == WM_KEYDOWN || msg.message == WM_SYSKEYDOWN) );           
+							if ( theShouldTranslateFlag )
+							{
+								TranslateMessage( &msg );
+							}
 						}
 						else if( msg.message == WM_CHAR || msg.message == WM_SYSCHAR )
 						{
-							char theBuffer[1024];
-							sprintf( theBuffer, "%c", (char)msg.wParam );
-							::OutputDebugStringA( theBuffer );
+							the2dpq.HandleChar( (char)msg.wParam );
 						}
 						else
 						{

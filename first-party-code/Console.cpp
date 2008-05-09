@@ -1,3 +1,4 @@
+#include "Game.h"
 #include "Console.h"
 #include <math.h>
 #include <stdio.h> //sprintf
@@ -5,8 +6,8 @@
 CConsole::CConsole( )
 {
 	m_Active   = true;
-	m_CurrentY = 4.f;
-	m_TargetY  = 0.f;
+	m_CurrentY = 225.f;
+	m_TargetY  = 110.f;
 
 	m_Font.LoadFromFile( ".\\data\\profont.png" );
 
@@ -17,56 +18,57 @@ CConsole::CConsole( )
 	}
 
 	memset( m_InputBuffer, 0, 128 );
-
-	Print( "1" );
-	Print( "2" );
-	Print( "3" );
 }
 
 CConsole::~CConsole()
 {
 }
 
+void CConsole::SetGame( CGame* inGame )
+{
+	m_Game = inGame;
+}
+
 void CConsole::Update( TTimeUnit inTime )
 {
 	if( fabs(m_CurrentY-m_TargetY) > 0.01f )
 	{
-		m_CurrentY -= (m_CurrentY-m_TargetY)*0.0025f;
+		m_CurrentY -= (m_CurrentY-m_TargetY)*0.05f;
 	}
 }
 
 void CConsole::Render()
 {
 	glLoadIdentity();
-/*
-	glBegin( GL_TRIANGLES );
-		glColor4f( 0.2f, 0.2f, 0.2f, 0.5f );
-		glVertex3f( -100, m_CurrentY, -10.0f );
-		glVertex3f( -100, 100       , -10.0f );
-		glVertex3f(  100, m_CurrentY, -10.0f );
 
-		glVertex3f(  100, m_CurrentY, -10.0f );
-		glVertex3f( -100, 100,        -10.0f );
-		glVertex3f(  100, 100,        -10.0f );
+	glBegin( GL_TRIANGLES );
+		glColor4f( 0.3f, 0.3f, 0.3f, 0.5f );
+		glVertex3f( -400, m_CurrentY-2, -10.0f );
+		glVertex3f( -400, 225       , -10.0f );
+		glVertex3f(  400, m_CurrentY-2, -10.0f );
+
+		glVertex3f(  400, m_CurrentY-2, -10.0f );
+		glVertex3f( -400, 225,        -10.0f );
+		glVertex3f(  400, 225,        -10.0f );
 	glEnd();
 
 	glLineWidth( 3.0f );
 	glBegin( GL_LINE_STRIP );
 		glColor3f( 0.2f, 0.2f, 0.2f );
-		glVertex3f( -100, m_CurrentY, -10.0f );
-		glVertex3f(  100, m_CurrentY, -10.0f );
+		glVertex3f( -400, m_CurrentY-2, -10.0f );
+		glVertex3f(  400, m_CurrentY-2, -10.0f );
 	glEnd();
 	glLineWidth( 2.0f );
-*/
+
 	for( int i=0; i<8; i++ )
 	{
 		int theIndex = m_LineCursorIndex-i-1;
 		if( theIndex < 0 ) theIndex += 8;
-		RenderString( i*11, m_Lines[ theIndex ] );
+		RenderString( m_CurrentY+(i+1)*11, m_Lines[ theIndex ] );
 	}
 	char theBuffer[256];
 	sprintf( theBuffer, "> %s", m_InputBuffer );
-	RenderString( -11, theBuffer );
+	RenderString( m_CurrentY, theBuffer );
 }
 
 void CConsole::RenderString( int inY, char* inString )
@@ -88,11 +90,11 @@ void CConsole::RenderString( int inY, char* inString )
 		float bottom = (float)(3 + y*17)/256.f;
 		float top    = bottom + (11.f/256.f);
 
-		glColor3f( 1.f, 1.f, 1.f ); 
 		glNormal3f( 0, 0, 1.f );
 		glPushMatrix();
-		glTranslatef( -390, 130+inY, 0 );
+		glTranslatef( -390, inY, 0 );
 		glBegin( GL_TRIANGLES );
+			glColor3f( 0.f, 1.f, 0.f ); 
 			glTexCoord2d(  left,  top    ); 
 			glVertex3f  (  i*6, 11, -1 );
 			glTexCoord2d(  right,  top    ); 
@@ -113,30 +115,36 @@ void CConsole::RenderString( int inY, char* inString )
 	glDisable( GL_TEXTURE_2D );
 }
 
-void CConsole::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
+bool CConsole::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
 {
 	if( inKeyDownFlag )
 	{
 		if( inMessage == 8 ) // backspace
 		{
 			m_InputBuffer[ strlen(m_InputBuffer)-1 ] = 0;
+			return false;
 		}
 		else if( inMessage == 13 ) // return
 		{
 			Print( m_InputBuffer );
+			m_Game->SendInput( m_InputBuffer );
 			strcpy( m_InputBuffer, "" );
-		}
-		else
-		{
-			sprintf( m_InputBuffer, "%s%c", m_InputBuffer, (char)inMessage );
+			return false;
 		}
 	}
+
+	return true;
+}
+
+void CConsole::HandleChar( char inChar )
+{
+	sprintf( m_InputBuffer, "%s%c", m_InputBuffer, inChar );
 }
 
 void CConsole::Toggle()
 {
 	m_Active = !m_Active;
-	m_TargetY = m_Active ? 5.f : 0.f;
+	m_TargetY = m_Active ? 110.f : 230.f;
 }
 
 void CConsole::Print( char* inString )

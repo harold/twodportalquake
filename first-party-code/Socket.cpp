@@ -9,12 +9,12 @@ CSocket::CSocket( int inPort )
 	int theResult = 0;
 
     if (0!=(theResult = WSAStartup(MAKEWORD(2,2), &m_WsaData))) {
-        printf("WSAStartup failed: %d\n", theResult);
+        CLog::Print("WSAStartup failed: %d\n", theResult);
     }
 
 	m_Socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
     if (m_Socket == INVALID_SOCKET) {
-        printf("socket failed: %ld\n", WSAGetLastError());
+        CLog::Print("socket failed: %ld\n", WSAGetLastError());
         WSACleanup();
     }
 
@@ -22,7 +22,7 @@ CSocket::CSocket( int inPort )
 	unsigned long theYesPlease = 1;
 	if (-1 == ioctlsocket(m_Socket, FIONBIO, &theYesPlease))
 	{
-		printf("WARNING: UDP_OpenSocket: ioctl FIONBIO: %s\n", WSAGetLastError());
+		CLog::Print("WARNING: UDP_OpenSocket: ioctl FIONBIO: %s\n", WSAGetLastError());
 	}
 
 	sockaddr_in theSockaddrIn;
@@ -31,7 +31,7 @@ CSocket::CSocket( int inPort )
 	theSockaddrIn.sin_port = htons( inPort );
 
     if (SOCKET_ERROR == bind( m_Socket, (sockaddr*)&theSockaddrIn, sizeof(sockaddr) )) {
-        printf("bind failed: %d\n", WSAGetLastError());
+        CLog::Print("bind failed: %d\n", WSAGetLastError());
         closesocket( m_Socket );
         WSACleanup();
     }
@@ -41,7 +41,7 @@ CSocket::~CSocket()
 {
 	// shutdown the connection since we're done
     if (SOCKET_ERROR == shutdown(m_Socket, SD_SEND)) {
-        printf("shutdown failed: %d\n", WSAGetLastError());
+        CLog::Print("shutdown failed: %d\n", WSAGetLastError());
         closesocket(m_Socket);
         WSACleanup();
     }
@@ -57,22 +57,20 @@ char* CSocket::Read( sockaddr* theSenderAddr )
 	theIncomingBufferSize = recvfrom( m_Socket, m_IncomingBuffer, m_IncomingBufferSize, 0, theSenderAddr, &m_SockaddrSize );
 	if (theIncomingBufferSize > 0)
 	{
-		printf("Socket: Bytes received: %d\n", theIncomingBufferSize);
+		CLog::Print("Socket: Bytes received: %d\n", theIncomingBufferSize);
 		m_IncomingBuffer[ theIncomingBufferSize ] = 0;
-		CLog::Print( "Data: " );
-		CLog::Print( m_IncomingBuffer );
-		CLog::Print( "\n" );
+		CLog::Print( "Data: %s\n", m_IncomingBuffer );
 	}
 	else if (theIncomingBufferSize == 0)
 	{
-		printf("Socket: Bytes received: %d\n", theIncomingBufferSize);
+		CLog::Print("Socket: Bytes received: %d\n", theIncomingBufferSize);
 		sprintf( m_IncomingBuffer, "" );
 	}
 	else
 	{
 		sprintf( m_IncomingBuffer, "" );
 		// Most likely just WSAEWOULDBLOCK
-		//printf("Socket: recv failed: %d\n", WSAGetLastError());
+		//CLog::Print("Socket: recv failed: %d\n", WSAGetLastError());
 	}
 
 	return m_IncomingBuffer;
@@ -83,7 +81,7 @@ void CSocket::Write( char* inString, sockaddr* theRecipient )
 	int theSendResult = 0;
 	theSendResult = sendto( m_Socket, inString, (int)strlen(inString), 0, theRecipient, m_SockaddrSize );
     if (theSendResult == SOCKET_ERROR) {
-        printf("Socket: send failed: %d\n", WSAGetLastError());
+        CLog::Print("Socket: send failed: %d\n", WSAGetLastError());
     }
-    printf("Socket: Bytes sent: %d\n", theSendResult);
+    CLog::Print("Socket: Bytes sent: %d\n", theSendResult);
 }

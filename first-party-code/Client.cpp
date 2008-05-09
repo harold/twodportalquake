@@ -22,8 +22,6 @@ void CClient::Update( TTimeUnit inTime )
 		CLog::Print( theString );
 		CLog::Print( "\n" );
 	}
-
-	m_Console.Update( inTime );
 }
 
 void CClient::Render()
@@ -39,29 +37,32 @@ void CClient::Render()
 	}
 	glEnd();
 
-	m_Console.Render();
-
-	glFlush();
 }
 
-void CClient::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
+bool CClient::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
 {
-	if( 192 == inMessage && inKeyDownFlag ) // '~'
-	{
-		m_Console.Toggle();
-	}
+	return true;
+}
 
-	m_Console.Keyboard( inMessage, inKeyDownFlag );
+void CClient::HandleChar( char inChar )
+{
 }
 
 void CClient::ConnectToServer( char* inHost, char* inPort )
 {
 	addrinfo* theAddrInfo;
 	getaddrinfo( inHost, inPort, 0, &theAddrInfo );
-	m_ServerSockaddr.sa_family = theAddrInfo->ai_addr->sa_family;
-	memcpy( m_ServerSockaddr.sa_data, theAddrInfo->ai_addr->sa_data, 14 );
-	freeaddrinfo( theAddrInfo );
-	m_Socket->Write( "RequestConnection", &m_ServerSockaddr );
+	if ( theAddrInfo )
+	{
+		m_ServerSockaddr.sa_family = theAddrInfo->ai_addr->sa_family;
+		memcpy( m_ServerSockaddr.sa_data, theAddrInfo->ai_addr->sa_data, 14 );
+		freeaddrinfo( theAddrInfo );
+		m_Socket->Write( "RequestConnection", &m_ServerSockaddr );
+	}
+	else
+	{
+		CLog::Print( "%s:%s - Server not found :(", inHost, inPort );
+	}
 }
 
 void CClient::Write( char* inString )
