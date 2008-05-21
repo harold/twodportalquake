@@ -18,7 +18,7 @@ class C2dpq : public CuGL
 	public:
 		virtual bool Initialize();
 		virtual void Deinitialize( );
-		virtual void Update( DWORD inMiliseconds );
+		virtual void Update( DWORD inMiliseconds, HWND inHWND );
 		virtual void Draw( HWND inHWND );
 		virtual bool Keyboard( unsigned int inMessage, bool inKeyDownFlag );
 		virtual void HandleChar( char inChar );

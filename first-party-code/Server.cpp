@@ -46,26 +46,38 @@ void CServer::Update( TTimeUnit inTime )
 			if( m_ConnectedClientCount < 2 )
 			{
 				memcpy( &m_ClientAddrs[ m_ConnectedClientCount ], &theSenderAddr, sizeof( sockaddr ) );
-				m_Socket->Write( "OkayLet'sPlay", &m_ClientAddrs[ m_ConnectedClientCount ] );
+				char theBuffer[1024];
+				sprintf( theBuffer, "SetPlayer%d", m_ConnectedClientCount );
+				m_Socket->Write( theBuffer, &m_ClientAddrs[ m_ConnectedClientCount ] );
 				m_ConnectedClientCount++;
 			}
 		}
 		else
 		{
-			CLog::Print( "Executing Lua Code: %s\n", theString );
-			luaL_dostring( m_LuaState, theString );
+			//CLog::Print( "Executing Lua Code: %s\n", theString );
+			//luaL_dostring( m_LuaState, theString );
+			if ( 'L' == theString[0] )
+			{
+				m_GameState.SetLeftPlayerY( atoi( theString+1 ) );
+			}
+			if ( 'R' == theString[0] )
+			{
+				m_GameState.SetRightPlayerY( atoi( theString+1 ) );
+			}
 		}
 
 		delete[] theStringCopy;
 	}
 
-	if( m_UpdateDelta > 2000 )
+	if( m_UpdateDelta > 30 )
 	{
+		char theBuffer[128];
+		sprintf( theBuffer, "%d %d", m_GameState.GetLeftPlayerY(), m_GameState.GetRightPlayerY() );
 		for( int i=0; i<m_ConnectedClientCount; ++i )
 		{
-			//m_Socket->Write( "Server Update!", &m_ClientAddrs[ i ] );
+			m_Socket->Write( theBuffer, &m_ClientAddrs[ i ] );
 		}
-		m_UpdateDelta %= 2000;
+		m_UpdateDelta %= 30;
 	}
 
 	// TODO: select() to wait for data at server socket? (Or at game level?)

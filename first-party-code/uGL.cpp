@@ -297,7 +297,7 @@ void CuGL::Deinitialize( )
 {
 }
 
-void CuGL::Update( DWORD milliseconds )
+void CuGL::Update( DWORD milliseconds, HWND inHWND )
 {
 	UNREFERENCED_PARAMETER( milliseconds );
 }

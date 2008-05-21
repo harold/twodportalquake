@@ -10,11 +10,11 @@ CGame::~CGame()
 {
 }
 
-void CGame::Update()
+void CGame::Update( HWND inHWND )
 {
 	TTimeUnit theTime = m_Timer.GetTimeMilliSecs();
 	m_Server.Update( theTime );
-	m_Client.Update( theTime );
+	m_Client.Update( theTime, inHWND );
 
 	m_Console.Update( theTime );
 

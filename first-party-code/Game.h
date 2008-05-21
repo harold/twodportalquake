@@ -29,7 +29,7 @@ class CGame
 		public:
 			void ConsolePrint( char* inString );
 
-			void Update();
+			void Update( HWND inHWND );
 			void Render();
 			bool Keyboard( unsigned int inMessage, bool inKeyDownFlag );
 			void HandleChar( char inChar );

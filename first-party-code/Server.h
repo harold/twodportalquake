@@ -1,4 +1,5 @@
 #pragma once
+#include "GameState.h"
 #include "Socket.h"
 #include "LuaIncludes.h"
 #include "Timer.h"
@@ -17,6 +18,8 @@ class CServer
 
 			int        m_ConnectedClientCount;
 			sockaddr   m_ClientAddrs[2]; // MAX_PLAYERS
+
+			CGameState m_GameState;
 
 
 	// Ctor

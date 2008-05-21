@@ -102,7 +102,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 					{
 						// Process Application Loop
 						theTickCount = GetTickCount();
-						the2dpq.Update( theTickCount - the2dpq.m_Window.lastTickCount );
+						the2dpq.Update( theTickCount - the2dpq.m_Window.lastTickCount, the2dpq.m_Window.hWnd );
 						the2dpq.m_Window.lastTickCount = theTickCount;
 						the2dpq.Draw( the2dpq.m_Window.hWnd );
 

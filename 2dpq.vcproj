@@ -395,27 +395,11 @@
 			Name="game"
 			>
 			<File
-				RelativePath=".\first-party-code\2dpq.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\first-party-code\2dpq.h"
-				>
-			</File>
-			<File
 				RelativePath=".\first-party-code\Client.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\first-party-code\Client.h"
-				>
-			</File>
-			<File
-				RelativePath=".\first-party-code\CommandQueue.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\first-party-code\CommandQueue.h"
 				>
 			</File>
 			<File
@@ -435,27 +419,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\first-party-code\Image.cpp"
+				RelativePath=".\first-party-code\GameState.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\first-party-code\Image.h"
-				>
-			</File>
-			<File
-				RelativePath=".\first-party-code\Log.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\first-party-code\Log.h"
-				>
-			</File>
-			<File
-				RelativePath=".\first-party-code\LuaIncludes.h"
-				>
-			</File>
-			<File
-				RelativePath=".\first-party-code\Main.cpp"
+				RelativePath=".\first-party-code\GameState.h"
 				>
 			</File>
 			<File
@@ -464,6 +432,50 @@
 			</File>
 			<File
 				RelativePath=".\first-party-code\Server.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="core"
+			>
+			<File
+				RelativePath=".\first-party-code\2dpq.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\2dpq.h"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\Main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\uGL.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\uGL.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="helpers"
+			>
+			<File
+				RelativePath=".\first-party-code\CommandQueue.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\CommandQueue.h"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\Log.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\Log.h"
 				>
 			</File>
 			<File
@@ -490,16 +502,28 @@
 				RelativePath=".\first-party-code\Timer.h"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="headers"
+			>
 			<File
-				RelativePath=".\first-party-code\uGL.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\first-party-code\uGL.h"
+				RelativePath=".\first-party-code\LuaIncludes.h"
 				>
 			</File>
 			<File
 				RelativePath=".\first-party-code\WindowsIncludes.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="renderer"
+			>
+			<File
+				RelativePath=".\first-party-code\Image.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\Image.h"
 				>
 			</File>
 		</Filter>

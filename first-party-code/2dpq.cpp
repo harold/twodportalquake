@@ -35,9 +35,9 @@ void C2dpq::Deinitialize( )
 	delete m_Game;
 }
 
-void C2dpq::Update( DWORD milliseconds )
+void C2dpq::Update( DWORD milliseconds, HWND inHWND )
 {
-	m_Game->Update();
+	m_Game->Update( inHWND );
 }
 
 void C2dpq::Draw( HWND inHWND )
