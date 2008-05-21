@@ -395,6 +395,14 @@
 			Name="game"
 			>
 			<File
+				RelativePath=".\first-party-code\Board.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\first-party-code\Board.h"
+				>
+			</File>
+			<File
 				RelativePath=".\first-party-code\Client.cpp"
 				>
 			</File>

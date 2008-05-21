@@ -54,16 +54,6 @@ void CServer::Update( TTimeUnit inTime )
 		}
 		else
 		{
-			//CLog::Print( "Executing Lua Code: %s\n", theString );
-			//luaL_dostring( m_LuaState, theString );
-			if ( 'L' == theString[0] )
-			{
-				m_GameState.SetLeftPlayerY( atoi( theString+1 ) );
-			}
-			if ( 'R' == theString[0] )
-			{
-				m_GameState.SetRightPlayerY( atoi( theString+1 ) );
-			}
 		}
 
 		delete[] theStringCopy;
@@ -71,12 +61,6 @@ void CServer::Update( TTimeUnit inTime )
 
 	if( m_UpdateDelta > 30 )
 	{
-		char theBuffer[128];
-		sprintf( theBuffer, "%d %d", m_GameState.GetLeftPlayerY(), m_GameState.GetRightPlayerY() );
-		for( int i=0; i<m_ConnectedClientCount; ++i )
-		{
-			m_Socket->Write( theBuffer, &m_ClientAddrs[ i ] );
-		}
 		m_UpdateDelta %= 30;
 	}
 

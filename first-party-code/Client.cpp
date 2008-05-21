@@ -11,67 +11,32 @@ CClient::~CClient()
 {
 }
 
+void CClient::SetGame( CGame* inGame )
+{
+	m_Game = inGame;
+	m_Board.SetGame( m_Game );
+}
+
 void CClient::Update( TTimeUnit inTime, HWND inHWND )
 {
 	m_UpdateDelta += inTime - m_LastTime;
 	m_CurrentTime = inTime;
+
 	sockaddr theSenderAddr;
 	char* theString = m_Socket->Read( &theSenderAddr );
 	int theInputLength = (int)strlen(theString);
 	if( 0 != theInputLength )
 	{
 		CLog::Print( "Client hears: %s\n", theString );
-		if( !strcmp( theString, "SetPlayer0" ) )
+		if( !strcmp( theString, "SomeString" ) )
 		{
-			m_PlayerNumber = 0;
 		}
-		else if( !strcmp( theString, "SetPlayer1" ) )
+		else if( !strcmp( theString, "SomeOtherString" ) )
 		{
-			m_PlayerNumber = 1;
 		}
 		else
 		{
-			int theLeft = 0;
-			int theRight = 0;
-			char* theStringCopy = new char[ strlen(theString)+1 ];
-			strcpy( theStringCopy, theString );
-			char* theToken = strtok( theStringCopy, " " );
-			theLeft = atoi( theToken );
-			theToken = strtok( 0, " " );
-			theRight = atoi( theToken );
-			delete[] theStringCopy;
-
-			m_GameState.SetLeftPlayerY( theLeft );
-			m_GameState.SetRightPlayerY( theRight );
 		}
-	}
-
-	POINT theCursor;
-    GetCursorPos( &theCursor );
-    ScreenToClient( inHWND, &theCursor );
-	char theBuffer[128];
-	if( m_UpdateDelta > 60 )
-	{
-		if ( 0 == m_PlayerNumber )
-		{
-			sprintf( theBuffer, "L%d", 225-theCursor.y );
-			m_Socket->Write( theBuffer, &m_ServerSockaddr );
-		}
-		if ( 1 == m_PlayerNumber )
-		{
-			sprintf( theBuffer, "R%d", 225-theCursor.y );
-			m_Socket->Write( theBuffer, &m_ServerSockaddr );
-		}
-		m_UpdateDelta %= 60;
-	}
-
-	if ( 0 == m_PlayerNumber )
-	{
-		m_GameState.SetLeftPlayerY( 225-theCursor.y );
-	}
-	if ( 1 == m_PlayerNumber )
-	{
-		m_GameState.SetRightPlayerY( 225-theCursor.y );
 	}
 
 	m_LastTime = inTime;
@@ -91,31 +56,7 @@ void CClient::Render()
 	}
 	glEnd();
 */
-	glBegin( GL_TRIANGLES );
-		glColor3f( 1, 1, 1 );
-		// Left player
-		glVertex3f( -395, m_GameState.GetLeftPlayerY()+50, -10.f );
-		glVertex3f( -385, m_GameState.GetLeftPlayerY()+50, -10.f );
-		glVertex3f( -395, m_GameState.GetLeftPlayerY()-50, -10.f );
-		glVertex3f( -395, m_GameState.GetLeftPlayerY()-50, -10.f );
-		glVertex3f( -385, m_GameState.GetLeftPlayerY()+50, -10.f );
-		glVertex3f( -385, m_GameState.GetLeftPlayerY()-50, -10.f );
-		// Right player
-		glVertex3f( 395, m_GameState.GetRightPlayerY()+50, -10.f );
-		glVertex3f( 385, m_GameState.GetRightPlayerY()+50, -10.f );
-		glVertex3f( 395, m_GameState.GetRightPlayerY()-50, -10.f );
-		glVertex3f( 395, m_GameState.GetRightPlayerY()-50, -10.f );
-		glVertex3f( 385, m_GameState.GetRightPlayerY()+50, -10.f );
-		glVertex3f( 385, m_GameState.GetRightPlayerY()-50, -10.f );
-		// Ball
-		glColor3f( 0.5f, 0.5f, 1 );
-		glVertex3f( m_GameState.GetBallX()-3, m_GameState.GetBallY()+3, -10.f );
-		glVertex3f( m_GameState.GetBallX()+3, m_GameState.GetBallY()+3, -10.f );
-		glVertex3f( m_GameState.GetBallX()-3, m_GameState.GetBallY()-3, -10.f );
-		glVertex3f( m_GameState.GetBallX()-3, m_GameState.GetBallY()-3, -10.f );
-		glVertex3f( m_GameState.GetBallX()+3, m_GameState.GetBallY()+3, -10.f );
-		glVertex3f( m_GameState.GetBallX()+3, m_GameState.GetBallY()-3, -10.f );
-	glEnd();
+	m_Board.Render();
 }
 
 bool CClient::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
@@ -148,4 +89,3 @@ void CClient::Write( char* inString )
 {
 	m_Socket->Write( inString, &m_ServerSockaddr  );
 }
-

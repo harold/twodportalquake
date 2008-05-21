@@ -32,13 +32,15 @@ class CuGL
 
 	struct SGLWindow
 	{
-		SKeys*         keys;
+		SKeys*        keys;
 		HWND          hWnd;
 		HDC           hDC;
 		HGLRC         hRC;
 		SGLWindowInit init;
 		bool          isVisible;
 		DWORD         lastTickCount;
+		int           m_Width;
+		int           m_Height;
 	};
 
 	//-------------------------------------------------------------------------

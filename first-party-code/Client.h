@@ -4,6 +4,9 @@
 #include "Timer.h"
 #include "uGL.h"
 #include <math.h>
+#include "Board.h"
+
+class CGame;
 
 class CClient
 {
@@ -18,6 +21,8 @@ class CClient
 
 			int        m_PlayerNumber;
 			CGameState m_GameState;
+			CGame*     m_Game;
+			CBoard     m_Board;
 
 	// Ctor
 		public:
@@ -27,6 +32,7 @@ class CClient
 	// Methods
 		private:
 		public:
+			void SetGame( CGame* inGame );
 			void Update( TTimeUnit inTime, HWND inHWND );
 			void Render();
 			bool Keyboard( unsigned int inMessage, bool inKeyDownFlag );

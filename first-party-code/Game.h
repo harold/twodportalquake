@@ -6,10 +6,13 @@
 #include "CommandQueue.h"
 #include "Timer.h"
 
+class C2dpq;
+
 class CGame
 {
 	// Members
 		private:
+			C2dpq*    m_2dpq;
 			CServer   m_Server;
 			CClient   m_Client;
 			CConsole  m_Console;
@@ -21,7 +24,7 @@ class CGame
 
 	// Ctor
 		public:
-			CGame();
+			CGame( C2dpq* in2dpq );
 			~CGame();
 
 	// Methods
@@ -35,4 +38,7 @@ class CGame
 			void HandleChar( char inChar );
 			void ParseCommand( char* inString );
 			void SendInput( char* inString );
+
+			int GetScreenWidth();
+			int GetScreenHeight();
 };

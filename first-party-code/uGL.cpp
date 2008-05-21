@@ -240,11 +240,15 @@ LRESULT CALLBACK CuGL::WindowProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 				case SIZE_MAXIMIZED:
 					theWindow->isVisible = true;
+					theWindow->m_Width  = LOWORD (lParam);
+					theWindow->m_Height = HIWORD (lParam);
 					Reshape( LOWORD (lParam), HIWORD (lParam) );
 				return 0;
 
 				case SIZE_RESTORED:
 					theWindow->isVisible = true;
+					theWindow->m_Width  = LOWORD (lParam);
+					theWindow->m_Height = HIWORD (lParam);
 					Reshape( LOWORD (lParam), HIWORD (lParam) );
 				return 0;
 			}
@@ -277,15 +281,6 @@ LRESULT CALLBACK CuGL::WindowProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 void CuGL::Reshape( int inWidth, int inHeight )
 {
 	glViewport( 0, 0, inWidth, inHeight );
-	glMatrixMode( GL_PROJECTION);
-	glLoadIdentity();
-
-//	float theAspectRatio = static_cast<float>(inWidth) / static_cast<float>(inHeight);
-//	gluPerspective( 45.0f, theAspectRatio, 1.0f, 100.0f );
-
-	glOrtho( -inWidth/2, inWidth/2, -inHeight/2, inHeight/2, 0.5, 100 );
-	glMatrixMode( GL_MODELVIEW);
-	glLoadIdentity();
 }
 
 bool CuGL::Initialize( )

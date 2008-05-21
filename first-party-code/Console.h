@@ -33,7 +33,7 @@ class CConsole
 			void SetGame( CGame* inGame );
 			void Update( TTimeUnit inTime );
 			void Render();
-			void RenderString( int inY, char* inString );
+			void RenderString( int inScreenWidth, int inY, char* inString );
 			bool Keyboard( unsigned int inMessage, bool inKeyDownFlag );
 			void HandleChar( char inChar );
 

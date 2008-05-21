@@ -3,7 +3,7 @@
 
 bool C2dpq::Initialize( )
 {
-	m_Game = new CGame();
+	m_Game = new CGame( this );
 
 	// Start Of User Initialization
 	glClearColor( 0, 0, 0, 1.0f );

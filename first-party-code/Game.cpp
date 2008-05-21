@@ -1,9 +1,12 @@
 #include "Game.h"
 #include "Log.h"
+#include "2dpq.h"
 
-CGame::CGame()
+CGame::CGame( C2dpq* in2dpq )
 {
+	m_2dpq = in2dpq;
 	m_Console.SetGame( this );
+	m_Client.SetGame( this );
 }
 
 CGame::~CGame()
@@ -115,3 +118,12 @@ void CGame::SendInput( char* inString )
 	m_InputSyncPrimitive.Drop();
 }
 
+int CGame::GetScreenWidth()
+{
+	return m_2dpq->m_Window.m_Width;
+}
+
+int CGame::GetScreenHeight()
+{
+	return m_2dpq->m_Window.m_Height;
+}
