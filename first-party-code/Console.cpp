@@ -50,20 +50,20 @@ void CConsole::Render()
 
 	glBegin( GL_TRIANGLES );
 		glColor4f( 0.3f, 0.3f, 0.3f, 0.5f );
-		glVertex3f( -theWidth/2, m_CurrentY-2, -10.0f );
-		glVertex3f( -theWidth/2, theHeight/2,  -10.0f );
-		glVertex3f(  theWidth/2, m_CurrentY-2, -10.0f );
+		glVertex3f( -theWidth/2.f, m_CurrentY-2.f, -10.0f );
+		glVertex3f( -theWidth/2.f,  theHeight/2.f, -10.0f );
+		glVertex3f(  theWidth/2.f, m_CurrentY-2.f, -10.0f );
 
-		glVertex3f(  theWidth/2, m_CurrentY-2, -10.0f );
-		glVertex3f( -theWidth/2, theHeight/2,  -10.0f );
-		glVertex3f(  theWidth/2, theHeight/2,  -10.0f );
+		glVertex3f(  theWidth/2.f, m_CurrentY-2.f, -10.0f );
+		glVertex3f( -theWidth/2.f,  theHeight/2.f, -10.0f );
+		glVertex3f(  theWidth/2.f,  theHeight/2.f, -10.0f );
 	glEnd();
 
 	glLineWidth( 3.0f );
 	glBegin( GL_LINE_STRIP );
 		glColor3f( 0.2f, 0.2f, 0.2f );
-		glVertex3f( -theWidth/2, m_CurrentY-2, -10.0f );
-		glVertex3f(  theWidth/2, m_CurrentY-2, -10.0f );
+		glVertex3f( -theWidth/2.f, m_CurrentY-2.f, -10.0f );
+		glVertex3f(  theWidth/2.f, m_CurrentY-2.f, -10.0f );
 	glEnd();
 	glLineWidth( 2.0f );
 
@@ -71,11 +71,11 @@ void CConsole::Render()
 	{
 		int theIndex = m_LineCursorIndex-i-1;
 		if( theIndex < 0 ) theIndex += 8;
-		RenderString( theWidth, m_CurrentY+(i+1)*11, m_Lines[ theIndex ] );
+		RenderString( theWidth, (int)m_CurrentY+(i+1)*11, m_Lines[ theIndex ] );
 	}
 	char theBuffer[256];
 	sprintf( theBuffer, "> %s", m_InputBuffer );
-	RenderString( theWidth, m_CurrentY, theBuffer );
+	RenderString( theWidth, (int)m_CurrentY, theBuffer );
 }
 
 void CConsole::RenderString( int inScreenWidth, int inY, char* inString )
@@ -85,8 +85,8 @@ void CConsole::RenderString( int inScreenWidth, int inY, char* inString )
 	glEnable( GL_TEXTURE_2D );
 	glBindTexture( GL_TEXTURE_2D, m_Font.GetTexture() );
 
-	int theLength = strlen( inString );
-	for( int i=0; i<theLength; i++ )
+	size_t theLength = strlen( inString );
+	for( size_t i=0; i<theLength; i++ )
 	{
 		int ascii = (int)inString[i];
 		int x = ascii % 16;
@@ -99,22 +99,13 @@ void CConsole::RenderString( int inScreenWidth, int inY, char* inString )
 
 		glNormal3f( 0, 0, 1.f );
 		glPushMatrix();
-		glTranslatef( -inScreenWidth/2+10, inY, 0 );
-		glBegin( GL_TRIANGLES );
+		glTranslatef( (float)(-inScreenWidth/2+10), (float)inY, 0 );
+		glBegin( GL_TRIANGLE_STRIP );
 			glColor3f( 0.f, 1.f, 0.f ); 
-			glTexCoord2d(  left,  top    ); 
-			glVertex3f  (  i*6, 11, -1 );
-			glTexCoord2d(  right,  top    ); 
-			glVertex3f  (  i*6+6, 11, -1 );
-			glTexCoord2d(  right,  bottom    ); 
-			glVertex3f  (  i*6+6, 0, -1 );
-								 
-			glTexCoord2d(  left,  top    ); 
-			glVertex3f  (  i*6, 11, -1 );
-			glTexCoord2d(  right,  bottom    ); 
-			glVertex3f  (  i*6+6, 0, -1 );
-			glTexCoord2d(  left,  bottom    ); 
-			glVertex3f  (  i*6, 0, -1 );
+			glTexCoord2d( left,  bottom ); glVertex3f( i*6.f,   0,  -1.f );
+			glTexCoord2d( left,  top    ); glVertex3f( i*6.f,   11, -1.f );
+			glTexCoord2d( right, bottom ); glVertex3f( i*6.f+6, 0,  -1.f );
+			glTexCoord2d( right, top    ); glVertex3f( i*6.f+6, 11, -1.f );
 		glEnd();
 		glPopMatrix();
 	}
@@ -153,11 +144,11 @@ void CConsole::Toggle()
 	m_Active = !m_Active;
 	if ( m_Active )
 	{
-		m_TargetY = m_Game->GetScreenHeight()/2-115;
+		m_TargetY = m_Game->GetScreenHeight()/2.f-115;
 	}
 	else
 	{
-		m_TargetY = m_Game->GetScreenHeight()/2+5;
+		m_TargetY = m_Game->GetScreenHeight()/2.f+5;
 	}
 }
 
