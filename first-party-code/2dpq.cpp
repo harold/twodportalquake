@@ -52,7 +52,12 @@ bool C2dpq::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
 
 void C2dpq::HandleChar( char inChar )
 {
-	return m_Game->HandleChar( inChar );
+	m_Game->HandleChar( inChar );
+}
+
+void C2dpq::MouseWheel( int inDistance )
+{
+	m_Game->MouseWheel( inDistance );
 }
 
 void C2dpq::LeftMouseDown( HWND inHWND )

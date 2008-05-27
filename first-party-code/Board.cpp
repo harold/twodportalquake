@@ -12,6 +12,8 @@ CBoard::CBoard( )
 	m_Layout[0][2] = 3; m_Layout[1][2] = 3; m_Layout[2][2] = 1; m_Layout[3][2] = 3;
 	m_Layout[0][1] = 0; m_Layout[1][1] = 0; m_Layout[2][1] = 1; m_Layout[3][1] = 0;
 	m_Layout[0][0] = 2; m_Layout[1][0] = 0; m_Layout[2][0] = 1; m_Layout[3][0] = 0;
+
+	m_CameraZ = -2000;
 }
 
 CBoard::~CBoard()
@@ -41,7 +43,7 @@ void CBoard::Render()
 
 	glMatrixMode( GL_MODELVIEW);
 	glLoadIdentity();
-	glTranslatef( -256.f, -256.f, 0 );
+	glTranslatef( -256.f, -256.f, (float)m_CameraZ );
 	for ( int x = 0; x < 4; ++x )
 	{
 		for ( int y = 0; y < 4 ; ++y )
@@ -50,10 +52,10 @@ void CBoard::Render()
 
 			glBegin( GL_TRIANGLE_STRIP );
 				glColor4f( 1.f, 1.f, 1.f, 1.f );
-				glTexCoord2d( 0, 0 ); glVertex3f( 0,   0,   -2000.0f );
-				glTexCoord2d( 0, 1 ); glVertex3f( 0,   128, -2000.0f );
-				glTexCoord2d( 1, 0 ); glVertex3f( 128, 0,   -2000.0f );
-				glTexCoord2d( 1, 1 ); glVertex3f( 128, 128, -2000.0f );
+				glTexCoord2d( 0, 0 ); glVertex3f( 0,   0,   0.0f );
+				glTexCoord2d( 0, 1 ); glVertex3f( 0,   128, 0.0f );
+				glTexCoord2d( 1, 0 ); glVertex3f( 128, 0,   0.0f );
+				glTexCoord2d( 1, 1 ); glVertex3f( 128, 128, 0.0f );
 			glEnd();
 			glTranslatef( 0, 128.f, 0 );
 		}
@@ -62,4 +64,11 @@ void CBoard::Render()
 	}
 
 	glDisable( GL_TEXTURE_2D );
+}
+
+void CBoard::MouseWheel( int inDistance )
+{
+	m_CameraZ += inDistance;
+	if( m_CameraZ > -10 )
+		m_CameraZ = -10;
 }

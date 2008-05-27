@@ -11,6 +11,7 @@ class CBoard
 			CGame* m_Game;
 			CImage m_Tiles[4];
 			int m_Layout[4][4];
+			int m_CameraZ;
 
 	// Ctor
 		public:
@@ -23,4 +24,6 @@ class CBoard
 			void SetGame( CGame* m_Game );
 			void Update( TTimeUnit inTime );
 			void Render();
+
+			void MouseWheel( int inDistance );
 }; 

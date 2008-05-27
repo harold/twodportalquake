@@ -127,3 +127,8 @@ int CGame::GetScreenHeight()
 {
 	return m_2dpq->m_Window.m_Height;
 }
+
+void CGame::MouseWheel( int inDistance )
+{
+	m_Client.MouseWheel( inDistance );
+}

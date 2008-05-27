@@ -1,6 +1,8 @@
 #include "WindowsIncludes.h"
 #include "2dpq.h"
 
+#define WM_MOUSEWHEEL                   0x020A
+
 #pragma comment( lib, "opengl32.lib" )
 #pragma comment( lib, "glu32.lib" )
 //#pragma comment( lib, "glaux.lib" )
@@ -58,6 +60,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 					if ( msg.message != WM_QUIT && msg.message != WM_CLOSE )
 					{
 						if ( 
+							msg.message == WM_MOUSEWHEEL    || 
 							msg.message == WM_LBUTTONDOWN   || 
 							msg.message == WM_LBUTTONUP     || 
 							msg.message == WM_LBUTTONDBLCLK || 

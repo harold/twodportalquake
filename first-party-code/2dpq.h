@@ -22,6 +22,7 @@ class C2dpq : public CuGL
 		virtual void Draw( HWND inHWND );
 		virtual bool Keyboard( unsigned int inMessage, bool inKeyDownFlag );
 		virtual void HandleChar( char inChar );
+		virtual void MouseWheel( int inDistance );
 		virtual void LeftMouseDown( HWND inHWND );
 		virtual void LeftMouseUp( HWND inHWND );
 };

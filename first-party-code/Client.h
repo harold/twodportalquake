@@ -40,4 +40,6 @@ class CClient
 
 			void ConnectToServer( char* inHost, char* inPort );
 			void Write( char* inString );
+
+			void MouseWheel( int inDistance );
 };

@@ -2,6 +2,9 @@
 #pragma warning( disable : 4311 )	//  'type cast' : pointer truncation
 #pragma warning( disable : 4312 )	//  'type cast' : pointer truncation
 
+#define WM_MOUSEWHEEL                   0x020A
+#define GET_WHEEL_DELTA_WPARAM(wParam)  ((short)HIWORD(wParam))
+
 bool CuGL::RegisterWindowClass( )
 {
 	// Register A Window Class
@@ -315,6 +318,12 @@ void CuGL::MouseHandler( MSG inMessage )
 {
 	switch( inMessage.message )
 	{
+		case WM_MOUSEWHEEL:
+		{
+			MouseWheel( GET_WHEEL_DELTA_WPARAM(inMessage.wParam) );
+			break;
+		}
+	
 		case WM_LBUTTONDOWN:
         case WM_LBUTTONDBLCLK:
         {
@@ -340,6 +349,11 @@ void CuGL::MouseHandler( MSG inMessage )
             break;
         }
 	}
+}
+
+void CuGL::MouseWheel( int inDistance )
+{
+	UNREFERENCED_PARAMETER( inDistance );
 }
 
 void CuGL::LeftMouseDown( HWND inHWND )

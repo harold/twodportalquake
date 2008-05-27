@@ -41,4 +41,6 @@ class CGame
 
 			int GetScreenWidth();
 			int GetScreenHeight();
+
+			void MouseWheel( int inDistance );
 };

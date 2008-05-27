@@ -89,3 +89,8 @@ void CClient::Write( char* inString )
 {
 	m_Socket->Write( inString, &m_ServerSockaddr  );
 }
+
+void CClient::MouseWheel( int inDistance )
+{
+	m_Board.MouseWheel( inDistance );
+}

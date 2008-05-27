@@ -80,6 +80,7 @@ class CuGL
 		virtual bool Keyboard( unsigned int inMessage, bool inKeyDownFlag );
 		virtual void HandleChar( char inChar );
 		virtual void MouseHandler( MSG inMessage );
+		virtual void MouseWheel( int inDistance );
 		virtual void LeftMouseDown( HWND inHWND );
 		virtual void LeftMouseUp( HWND inHWND );
 };
