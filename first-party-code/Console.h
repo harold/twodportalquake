@@ -1,5 +1,5 @@
 #pragma once
-#include "Timer.h"
+#include "Types.h"
 #include "Image.h"
 #include "uGL.h"
 

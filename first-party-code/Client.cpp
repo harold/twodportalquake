@@ -14,7 +14,7 @@ CClient::~CClient()
 void CClient::SetGame( CGame* inGame )
 {
 	m_Game = inGame;
-	m_Board.SetGame( m_Game );
+	m_World.SetGame( m_Game );
 }
 
 void CClient::Update( TTimeUnit inTime, HWND inHWND )
@@ -39,24 +39,15 @@ void CClient::Update( TTimeUnit inTime, HWND inHWND )
 		}
 	}
 
+	m_World.Update( inTime );
+
 	m_LastTime = inTime;
 }
 
 void CClient::Render()
 {
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
-
-	glLoadIdentity();
-/*
-	glBegin( GL_LINE_STRIP );
-	glColor3f( 0.0f, 0.0f, 0.8f );
-	for( float i=-10; i<=10; i+=2 )
-	{
-		glVertex3f( i*25, 25*sin((i+((float)m_CurrentTime*0.01f))/2.0f), -10.0f );
-	}
-	glEnd();
-*/
-	m_Board.Render();
+	m_World.Render();
 }
 
 bool CClient::Keyboard( unsigned int inMessage, bool inKeyDownFlag )
@@ -92,5 +83,5 @@ void CClient::Write( char* inString )
 
 void CClient::MouseWheel( int inDistance )
 {
-	m_Board.MouseWheel( inDistance );
+	m_World.MouseWheel( inDistance );
 }

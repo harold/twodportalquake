@@ -17,6 +17,8 @@ class CGame
 			CClient   m_Client;
 			CConsole  m_Console;
 
+			CMoonMan* m_MoonMan;
+
 			CTimer    m_Timer;
 
 			CSyncPrimitive m_InputSyncPrimitive;

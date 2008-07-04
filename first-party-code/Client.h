@@ -1,10 +1,10 @@
 #pragma once
 #include "GameState.h"
 #include "Socket.h"
-#include "Timer.h"
+#include "Types.h"
 #include "uGL.h"
 #include <math.h>
-#include "Board.h"
+#include "World.h"
 
 class CGame;
 
@@ -22,7 +22,7 @@ class CClient
 			int        m_PlayerNumber;
 			CGameState m_GameState;
 			CGame*     m_Game;
-			CBoard     m_Board;
+			CWorld     m_World;
 
 	// Ctor
 		public:

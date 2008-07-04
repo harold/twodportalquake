@@ -2,7 +2,7 @@
 #include "GameState.h"
 #include "Socket.h"
 #include "LuaIncludes.h"
-#include "Timer.h"
+#include "Types.h"
 
 class CGame;
 

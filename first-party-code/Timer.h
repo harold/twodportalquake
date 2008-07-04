@@ -1,9 +1,6 @@
 #pragma once
 #include <windows.h>
-
-typedef INT64 TMicroSeconds;		///< Time in microseconds
-typedef INT32 TTimeUnit;			///< Time in milliseconds
-
+#include "Types.h"
 class CTimer
 {
 	protected:
